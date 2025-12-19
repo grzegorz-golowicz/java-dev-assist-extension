@@ -1,0 +1,27 @@
+{
+  "name": "java-dev-assist-extension",
+  "version": "0.1.0",
+  "description": "Assistant for Java (Quarkus/Spring) developers",
+  "commands": [
+    {
+      "name": "java",
+      "path": "commands/java.toml"
+    },
+    {
+      "name": "java:stacktrace",
+      "path": "commands/stacktrace.toml"
+    },
+    {
+      "name": "java:review",
+      "path": "commands/review.toml"
+    },
+    {
+      "name": "java:deps",
+      "path": "commands/deps.toml"
+    },
+    {
+      "name": "java:boundary",
+      "path": "commands/boundary.toml"
+    }
+  ]
+}

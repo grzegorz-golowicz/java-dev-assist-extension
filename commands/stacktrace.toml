@@ -1,0 +1,33 @@
+name = "java:stacktrace"
+description = "Analyze Java stacktraces and propose concrete next steps."
+prompt = """
+Analyze the stack trace provided in {{args}}.
+
+Constraints:
+- Focus on root cause, not noise.
+- Provide concrete next checks (files/config/commands).
+- If multiple causes are plausible, list top 2 with confidence.
+
+Return using the exact headings:
+
+## Findings
+- Root cause:
+- Most likely failing component (module/package/class):
+- Category: (dependency/config/bug/data/infra/other)
+- Confidence: (high/medium/low)
+
+## Evidence
+- Key exception line:
+- First relevant stack frames (up to 5):
+- Message hints (versions, bean names, ports, SQL, etc.):
+
+## Recommended actions
+1) Immediate check:
+2) Likely fix:
+3) Prevent recurrence (small, practical):
+
+## Notes
+- Assumptions or missing context (what would confirm it).
+"""
+[system]
+from_file = "../GEMINI.md"

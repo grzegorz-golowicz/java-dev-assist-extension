@@ -1,0 +1,37 @@
+name = "java:deps"
+description = "Analyze Maven dependencies for conflicts and suspicious combinations."
+prompt = """
+Analyze Maven dependencies for common problems:
+- version conflicts / convergence issues
+- duplicate dependencies
+- suspicious combinations (e.g., multiple logging stacks, junit4+5 mixed, spring-web + spring-webflux unless intentional)
+- BOM vs explicit versions
+
+Dependency tree:
+!{mvn -q -DskipTests dependency:tree}
+
+Constraints:
+- Only flag issues with clear evidence from the output.
+- Prefer actionable advice: excludes, alignment via BOM/dependencyManagement, follow-up checks.
+- Do not invent specific version numbers.
+
+Return using the exact headings:
+
+## Findings
+- Conflicts:
+- Suspicious combinations:
+- Hygiene issues:
+
+## Evidence
+- Point to relevant dependency:tree lines (short excerpts).
+
+## Recommended actions
+1) Quick checks (safe):
+2) Alignment suggestions (BOM / dependencyManagement):
+3) If still unclear, run next (commands):
+
+## Notes
+- If mvn failed, include the error and suggest the next diagnostic command.
+"""
+[system]
+from_file = "../GEMINI.md"

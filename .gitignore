@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Gemini CLI
+.gemini/
+*.log
+
+# Environment
+.env
+.direnv/

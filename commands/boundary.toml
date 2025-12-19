@@ -1,0 +1,40 @@
+name = "java:boundary"
+description = "Check boundary rule: DTO types must not appear in service method signatures."
+prompt = """
+Goal: enforce a practical boundary rule:
+- DTO (transport layer types) must not appear in service method signatures (params/return).
+This keeps business logic transport-agnostic (REST vs gRPC, etc.).
+
+Heuristics (MVP):
+- DTO packages contain: `.dto.`, `.api.`, `.rest.`
+- Service classes are named `*Service` or are in packages containing `.service.`
+
+Evidence collection (grep-based, may include false positives):
+!{grep -R --line-number --include='*.java' -E '(class\\s+\\w+Service\\b|\\binterface\\s+\\w+Service\\b|\\.service\\.)' src/main/java 2>/dev/null || true}
+!{grep -R --line-number --include='*.java' -E '(\\.dto\\.|\\.api\\.|\\.rest\\.)' src/main/java 2>/dev/null || true}
+
+Analyze and report:
+- Confirmed violations: where a service method clearly accepts/returns a DTO type.
+- Suspected violations: where grep output suggests it but signature is unclear.
+
+Return using the exact headings:
+
+## Findings
+- Violations (confirmed):
+- Suspected violations (needs confirmation):
+- Boundary health notes:
+
+## Evidence
+- For each item: file path + line number + relevant signature line (or nearest line).
+
+## Recommended actions
+1) Minimal refactor pattern:
+   - Map DTO -> Command/Model in controller/adapter
+   - Service accepts Command/Model, returns Model/Result
+2) Quick follow-up checks (commands):
+
+## Notes
+- State limitations of grep-based detection and how to confirm quickly.
+"""
+[system]
+from_file = "../GEMINI.md"

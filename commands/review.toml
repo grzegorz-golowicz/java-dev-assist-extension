@@ -1,0 +1,37 @@
+name = "java:review"
+description = "Review git diff for risks, regressions, security and test gaps."
+prompt = """
+Review code changes.
+
+If {{args}} is empty, analyze: `git diff`.
+If {{args}} is provided, analyze: `git diff {{args}}`.
+
+Diff:
+!{git diff {{args}}}
+
+Constraints:
+- Review changes, not the whole repo.
+- No style nitpicks. Focus on risks and concrete fixes.
+- Call out: breaking changes, runtime risk, security footguns, transactional pitfalls, missing tests.
+
+Return using the exact headings:
+
+## Findings
+- High risk items (if any):
+- Medium risk items:
+- Low risk items:
+
+## Evidence
+- Reference the changed files and the change intent.
+- Quote only tiny snippets if needed.
+
+## Recommended actions
+1) Must-do before merge:
+2) Should-do:
+3) Nice-to-have:
+
+## Notes
+- If diff is empty or too large, say what to do next.
+"""
+[system]
+from_file = "../GEMINI.md"
