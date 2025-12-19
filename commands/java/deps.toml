@@ -1,4 +1,3 @@
-name = "java:deps"
 description = "Analyze Maven dependencies for conflicts and suspicious combinations."
 prompt = """
 Analyze Maven dependencies for common problems:
@@ -8,7 +7,7 @@ Analyze Maven dependencies for common problems:
 - BOM vs explicit versions
 
 Dependency tree:
-!{mvn -q -DskipTests dependency:tree}
+!{mvn -q -DskipTests dependency:tree 2>/dev/null || echo "(No Maven project found in this directory)"}
 
 Constraints:
 - Only flag issues with clear evidence from the output.

@@ -1,4 +1,3 @@
-name = "java:stacktrace"
 description = "Analyze Java stacktraces and propose concrete next steps."
 prompt = """
 Analyze the stack trace provided in {{args}}.

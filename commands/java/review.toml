@@ -1,4 +1,3 @@
-name = "java:review"
 description = "Review git diff for risks, regressions, security and test gaps."
 prompt = """
 Review code changes.

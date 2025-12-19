@@ -1,4 +1,3 @@
-name = "java:boundary"
 description = "Check boundary rule: DTO types must not appear in service method signatures."
 prompt = """
 Goal: enforce a practical boundary rule:
