@@ -32,6 +32,16 @@ gemini extension uninstall java-dev-assist-extension && gemini extension install
 /java
 ```
 
+### `/java:readme`
+**Description**: Creates or updates README.md for the analyzed Java project using either README.guidelines.md (if present) or the built-in defaults.
+**Usage**:
+```bash
+/java:readme
+```
+**Notes**:
+* Only AI-managed blocks wrapped by `<!-- AI:START -->` and `<!-- AI:END -->` are updated; manual content stays untouched.
+* Output follows a neutral, technical tone and defaults to a conservative structure when no guidelines file exists.
+
 ### `/java:stacktrace`
 **Description**: Analyzes Java stack traces to identify root causes and propose concrete fixes.
 **Usage**:
@@ -82,6 +92,38 @@ gemini extension uninstall java-dev-assist-extension && gemini extension install
 1.  **Safety First**: We verify before we act. Destructive commands require user confirmation.
 2.  **No "Magic"**: We explain *why* a change is suggested. We don't generate massive blocks of code without understanding the context.
 3.  **Context Aware**: We read `pom.xml` or `build.gradle` first to tailor advice to your specific stack.
+
+## README automation (java:readme)
+
+The `java:readme` command determines whether a `README.guidelines.md` file is available and applies its structure. If not, it falls back to a default order: Project Overview, Tech Stack, Build & Run, Project Structure, Configuration, and optional Limitations/Notes. Only the AI-managed block below is updated automatically; anything outside remains manual.
+
+<!-- AI:START -->
+## Project Overview
+TODO: Summarize the analyzed Java project's purpose based on build configuration and visible source layout.
+
+## Tech Stack
+TODO: Note the detected build tool (Maven/Gradle), Java version, and frameworks (e.g., Spring Boot, Quarkus) inferred from dependencies.
+
+## Build & Run
+TODO: Provide the exact build/run commands observed (e.g., `./mvnw spring-boot:run`, `./gradlew quarkusDev`). Leave TODO if not discoverable.
+
+## Project Structure
+TODO: Outline key modules or directories in the repository using visible paths.
+
+## Configuration
+TODO: List main configuration files (e.g., `application.properties`, `application.yml`) and any notable settings surfaced in the codebase.
+
+## Limitations / Notes
+TODO: Capture known constraints or gaps; if unknown, keep TODO.
+<!-- AI:END -->
+
+## Validation
+
+To verify that `java:readme` produced an English README with non-empty AI-managed content and markers, run:
+
+```bash
+./scripts/readme-validation.sh
+```
 
 ## 📂 Project Structure
 
