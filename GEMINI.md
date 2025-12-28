@@ -30,3 +30,4 @@ All responses must adhere to the following structure where applicable:
     -   `/java:deps`: Dependency analysis for Maven/Gradle.
     -   `/java:boundary`: Check boundary rule: DTO types must not appear in service method signatures.
     -   `/java:readme`: Create or update the analyzed Java project's README using guidelines or defaults.
+    -   `/java:api:lint`: Lint the API contract for standards compliance and consistency (OpenAPI or Java contract).

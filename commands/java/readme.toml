@@ -16,6 +16,7 @@ Guideline resolution:
 Project analysis (use only direct file reads, no extra helper scripts):
 - Identify build tool and Java version by reading pom.xml or build.gradle(.kts). If both exist, prefer Maven.
 - Detect frameworks (e.g., Spring Boot, Quarkus) from build files and config (application.properties/yml).
+- Detect API contracts (OpenAPI/Swagger) and list them in Tech Stack or Configuration.
 - Map modules/subprojects if present; list main entry classes when obvious.
 - Keep findings factual; if uncertain, say TODO.
 
@@ -35,6 +36,7 @@ Minimal validation (run after writing):
 Available project signals:
 !{ls}
 !{find . -maxdepth 2 -name 'README.guidelines.md' -o -name 'pom.xml' -o -name 'build.gradle' -o -name 'build.gradle.kts' -o -name 'settings.gradle' -o -name 'settings.gradle.kts' 2>/dev/null}
+!{find . -maxdepth 3 -name 'openapi.yaml' -o -name 'openapi.yml' -o -name 'openapi.json' -o -name 'swagger.yaml' -o -name 'swagger.yml' -o -name 'swagger.json' 2>/dev/null}
 !{find . -maxdepth 3 -name 'application.properties' -o -name 'application.yml' -o -name 'application.yaml' 2>/dev/null}
 !{head -n 200 pom.xml 2>/dev/null || true}
 !{head -n 200 build.gradle 2>/dev/null || true}

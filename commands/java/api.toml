@@ -1,0 +1,10 @@
+name = "api"
+description = "API related commands"
+prompt = """
+Display the API help menu for the Java Dev Assist extension.
+List the available commands as defined in the Scope section of GEMINI.md.
+Provide a one-line description for each.
+"""
+
+[system]
+from_file = "../../GEMINI.md"

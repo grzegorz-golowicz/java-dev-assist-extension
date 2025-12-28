@@ -1,0 +1,80 @@
+description = "Lint API contract for standards compliance and consistency (OpenAPI or Java contract)."
+
+prompt = """
+Lint the API contract using the best available source. This command supports:
+- OpenAPI specification (YAML/JSON), if present
+- Java API contract (controller interfaces + DTOs), if OpenAPI is not present
+
+Determine the contract source automatically:
+1) Prefer OpenAPI (YAML/JSON) if found.
+2) Otherwise analyze Java API contracts:
+   - controller classes or interfaces annotated with @RequestMapping/@GetMapping/@PostMapping/etc.
+   - DTOs used as request/response models.
+Explicitly state which source you used.
+
+Rule types:
+
+A) Standards / good-practice violations (normative)
+These are based on well-defined HTTP/REST semantics and should be reported as MUST-FIX or WARN.
+
+Check:
+- HTTP method semantics:
+  - GET should not normally define a request body.
+  - POST for create/start actions; PUT for full replace; PATCH for partial update; DELETE for removal.
+- Success status codes (when determinable from the contract):
+  - Async start -> 202.
+  - DELETE success -> 204 (200 only if a response body is explicitly documented).
+- Error responses:
+  - 4xx/5xx responses should use a single, consistent JSON error envelope shape.
+- Idempotency:
+  - For retriable POST operations (create/submit/charge-like), flag missing idempotency guidance as WARN.
+
+B) Consistency drift (dominant convention + deviations; do NOT enforce a specific style)
+Identify the dominant convention used in the API and report deviations only.
+
+Check:
+- Path segment casing (kebab/snake/camel/lowercase).
+- Plural vs singular resource naming in paths.
+- Query parameter naming and casing consistency for the same concepts.
+- JSON field naming style consistency across DTOs/schemas.
+- DTO/schema naming conventions (suffix/prefix patterns such as Request/Response/Dto).
+- Pagination and sorting parameter patterns (page/size vs offset/limit; sort formats).
+- Timestamp and money representation consistency (dominant shapes + deviations).
+
+Constraints:
+- Do NOT generate or modify API definitions.
+- Do NOT propose large refactors.
+- Base findings strictly on what is present in the chosen contract source.
+- Prefer concise, actionable findings over explanations.
+
+Return using the exact headings:
+
+## Findings
+### Contract source
+- Used source: (OpenAPI | Java contract)
+- Location(s):
+
+### Standards violations (normative)
+- MUST-FIX:
+- WARN:
+
+### Consistency drift (dominant + deviations)
+- Dominant conventions:
+- Deviations:
+
+## Evidence
+- For each item:
+  - METHOD + path (if applicable)
+  - Exact location (file/class/method or OpenAPI section/key)
+  - Short quote or precise reference
+
+## Recommended actions
+1) Must-do fixes (minimal, standards-driven):
+2) Should-do consistency improvements:
+3) Follow-up questions to confirm intent (if needed):
+
+## Notes
+- Ambiguities, edge cases, or assumptions made during analysis.
+"""
+[system]
+from_file = "../GEMINI.md"

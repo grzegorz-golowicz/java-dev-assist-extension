@@ -11,16 +11,22 @@
 
 ## 📦 Installation
 
-To install this extension locally:
+To install this extension from the repository:
 
 ```bash
-gemini extension install .
+gemini extensions install https://github.com/grzegorz-golowicz/java-dev-assist-extension
+```
+
+To install locally for development:
+
+```bash
+gemini extensions install .
 ```
 
 To update the extension after making changes:
 
 ```bash
-gemini extension uninstall java-dev-assist-extension && gemini extension install .
+gemini extensions uninstall java-dev-assist-extension && gemini extensions install .
 ```
 
 ## 🛠 Commands
@@ -41,6 +47,18 @@ gemini extension uninstall java-dev-assist-extension && gemini extension install
 **Notes**:
 * Only AI-managed blocks wrapped by `<!-- AI:START -->` and `<!-- AI:END -->` are updated; manual content stays untouched.
 * Output follows a neutral, technical tone and defaults to a conservative structure when no guidelines file exists.
+
+### `/java:api:lint`
+**Description**: Lints the API contract for standards compliance and consistency. Supports OpenAPI (YAML/JSON) or Java controller/DTO analysis.
+**Usage**:
+```bash
+/java:api:lint
+```
+**Output**:
+*   Contract source and location.
+*   Standards violations (MUST-FIX/WARN).
+*   Consistency drift (Dominant conventions vs deviations).
+*   Recommended actions.
 
 ### `/java:stacktrace`
 **Description**: Analyzes Java stack traces to identify root causes and propose concrete fixes.

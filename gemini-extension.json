@@ -1,5 +1,5 @@
 {
   "name": "java-dev-assist-extension",
   "version": "0.1.0",
-  "description": "Assistant for Java (Quarkus/Spring) developers"
+  "description": "Development assistant for Java 17+, Quarkus, and Spring Boot. Focuses on code review, stacktrace analysis, and architectural boundaries."
 }
